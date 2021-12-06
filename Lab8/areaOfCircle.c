@@ -2,10 +2,10 @@
 
 int main(){
     int r,area;
-    printf("radius");
+    printf("enter the value of radius\n");
     scanf("%d",&r);
     area = r*r*3;
-    printf("area = %d",area);
+    printf("area of triangle = %d",area);
     
     return 0;
 }

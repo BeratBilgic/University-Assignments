@@ -5,8 +5,7 @@ int main(){
     for ( int i = 0; i < 100; i++)
     {
         n = i*i;
-        printf("%d square = %d ",i,n);
-        printf("\n");
+        printf("%d^2 = %d\n",i,n);
     }
     
 }

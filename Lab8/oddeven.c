@@ -2,13 +2,13 @@
 
 int main(){
     int a,b;
-    printf("Bir sayı giriniz");
+    printf("enter the number\n");
     scanf("%d",&a);
     b = a%2;
     if( b == 0){
-        printf("%d çift",a);
+        printf("%d is even",a);
     }else{
-        printf("%d tek",a);
+        printf("%d is odd",a);
     }
     return 0;
 }
