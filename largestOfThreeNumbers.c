@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int main(){
+int main()
+{
     int a,b,c;
     printf("enter the value of a\n");
     scanf("%d",&a);
@@ -8,20 +9,17 @@ int main(){
     scanf("%d",&b);
     printf("enter the value of c\n");
     scanf("%d",&c);
-    if(a>b){
-        if(a>c)
-        {
-        printf("%d is largest number",a);
-        }else
-        {
-        printf("%d is largest number",c);  
-        }
-    }else if(b>c)
+    if (a>=b && a>=c)
     {
-        printf("%d is largest number",b);
-    }else{
-        printf("%d is largest number",c);
+        printf("%d is largest number",a);
     }
-
+    else if(b>=a && b>=c)
+    {
+        printf("%d is largest number",b);   
+    }
+    else if(c>=a && c>=b)
+    {
+        printf("%d is largest number",c);   
+    }
     return 0;
 }

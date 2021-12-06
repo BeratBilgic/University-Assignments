@@ -17,6 +17,7 @@ int main()
     printf("20  \t %d\n",c);
     d = money/10;
     printf("10  \t %d\n",d);
+    
     return 0;
 }
 /*
