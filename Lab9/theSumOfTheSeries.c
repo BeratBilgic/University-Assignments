@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 
 int main()
 {
@@ -9,8 +8,14 @@ int main()
     scanf("%f",&n);
     
     for (float i = 1; i < n; i++)
-    {
-        p = pow(x,i);
+    {   
+        p = x;
+
+        for (int j = 1; j < i; j++)
+        {   
+           p = p * x; 
+        }
+        
         fac = fac*i;
         sum = sum + (p/fac);
     }
