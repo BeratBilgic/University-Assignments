@@ -3,7 +3,8 @@
 
 int main()
 {
-    float x,n,fac = 1,sum = 0,p;
+    float x,n,p;
+    float fac = 1, sum = 1;
     scanf("%f",&x);
     scanf("%f",&n);
     
@@ -13,7 +14,6 @@ int main()
         fac = fac*i;
         sum = sum + (p/fac);
     }
-    sum = sum + 1;
     printf("%f",sum);
 
     return 0;
