@@ -1,6 +1,9 @@
+// 3. Determine and Output Whether Number N is Even or Odd.
+
 #include <stdio.h>
 
-int main(){
+int main()
+{
     int a,b;
     printf("enter the number\n");
     scanf("%d",&a);

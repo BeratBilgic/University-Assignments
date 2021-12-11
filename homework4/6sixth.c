@@ -1,0 +1,1 @@
+// 6. Write C code to find LCM of two numbers.

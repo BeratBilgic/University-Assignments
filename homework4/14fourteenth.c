@@ -1,0 +1,1 @@
+// 14.Write C code to print all Strong numbers between 1 to n.

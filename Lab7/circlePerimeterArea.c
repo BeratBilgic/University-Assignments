@@ -5,6 +5,8 @@ int main()
     int r,o,area,perimeter;
     printf("enter the value of radius\n");
     scanf("%d",&r);
+    printf("operation 1 = perimeter of triangle\n");
+    printf("operation 2 = area of triangle\n");
     printf("choose the operation type\n");
     scanf("%d",&o);
     if (o == 1)

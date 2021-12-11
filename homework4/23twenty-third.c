@@ -1,0 +1,1 @@
+// 23.Write C code to convert a decimal number into binary without using an array.

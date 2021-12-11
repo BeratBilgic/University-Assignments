@@ -1,0 +1,1 @@
+// 5.Write C code to find the sum of the first 50 natural numbers.

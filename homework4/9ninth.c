@@ -1,0 +1,1 @@
+// 9. Write C code to check whether a number is Armstrong number or not.

@@ -1,0 +1,1 @@
+// 20.Write C code to find the sum of the series [ x - x^3 + x^5 + ......].

@@ -1,0 +1,1 @@
+// 25.Write C code to print Pascal triangle upto n rows.

@@ -1,0 +1,1 @@
+// 15.Write C code to check Whether a Number is Palindrome or Not

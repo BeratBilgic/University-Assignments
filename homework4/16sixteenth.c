@@ -1,0 +1,1 @@
+// 16.Write C code to find the sum of the series [ 1-X^2/2!+X^4/4!- .........].

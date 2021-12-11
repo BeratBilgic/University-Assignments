@@ -1,0 +1,1 @@
+// 24.Write C code to convert a binary number into a decimal number without using array, function and while loop.
