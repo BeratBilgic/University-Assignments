@@ -21,7 +21,7 @@ int main()
         {
             printf("%d is prime number \n",i); 
         }    
-    }
-
+    } 
+    
     return 0;
 }

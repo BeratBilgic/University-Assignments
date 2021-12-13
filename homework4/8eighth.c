@@ -24,6 +24,6 @@ int main()
         }    
     }
     printf("\n%d is sum of the all numbers between 1 to %d\n",sum,n);
-
+    
     return 0;
 }
