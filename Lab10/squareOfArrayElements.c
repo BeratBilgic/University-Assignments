@@ -8,6 +8,11 @@ int main()
     for (i = 0; i < 10; i++)
     {
         scanf("%d",&array[i]);
+        if (array[i] == -1)
+        {
+            break;
+        }
+        
     }
     for (i = 0; i < 10; i++)
     {

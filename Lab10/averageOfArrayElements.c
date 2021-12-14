@@ -2,19 +2,20 @@
 
 int main()
 {
-    int array[8],i,sum = 0,average;
-    for ( i = 0; i < 8; i++)
+    float array[8],sum = 0,average;
+    printf("enter 8 array elements\n");
+
+    for (int i = 0; i < 8; i++)
     {
-        printf("enter 8 array elements\n");
-        scanf("%d",&array[i]);   
+        scanf("%f",&array[i]);   
     }
-    for ( i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++)
     {
         sum = sum + array[i];
     }
     average = sum/8;
 
-    printf("sum of the array elements = %d\n",average);
+    printf("average of the array elements = %f\n",average);
 
     return 0;
 }

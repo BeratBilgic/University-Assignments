@@ -1,13 +1,12 @@
 // 25.Write C code to print Pascal triangle upto n rows.
-// It works up to rows 13
 
 #include <stdio.h>
 
 int main()
 {
-    int i,j,row,k,ii,jj,faci=1,facj=1,output;
+    long int i,j,row,k,a,b,faci=1,facj=1,output;
     printf("Enter number of rows\n");
-    scanf("%d",&row);
+    scanf("%ld",&row);
 
     for ( i = 0; i <= row; i++)
     {
@@ -20,16 +19,16 @@ int main()
         {
             faci=1;
             facj=1;
-            for (ii = i; ii > i-j ;ii--)
+            for (a = i; a > i-j ;a--)
             {
-                faci = faci * ii;
+                faci = faci * a;
             }
-            for ( jj = j ; jj > 1; jj--)
+            for ( b = j ; b > 1; b--)
             {
-                facj = facj * jj;
+                facj = facj * b;
             }
             output = faci / facj;
-            printf("    %d",output);
+            printf("    %ld",output);
         }
         printf("\n");
     }
