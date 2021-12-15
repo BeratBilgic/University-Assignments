@@ -7,11 +7,8 @@ int main()
 
     for (int i = 0; i < 8; i++)
     {
-        scanf("%f",&array[i]);   
-    }
-    for (int i = 0; i < 8; i++)
-    {
-        sum = sum + array[i];
+        scanf("%f",&array[i]); 
+        sum = sum + array[i];  
     }
     average = sum/8;
 

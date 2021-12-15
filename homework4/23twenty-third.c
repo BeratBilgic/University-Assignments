@@ -5,7 +5,7 @@
 int main()
 {
     int num,binary,revBinary = 0,c = 1;
-    printf("enter the number\n");
+    printf("enter a decimal number = ");
     scanf("%d",&num);
 
     while ( num > 0 )
@@ -15,7 +15,7 @@ int main()
         revBinary = revBinary + (binary * c);
         c = c * 10;
     }
-    printf("%d\n",revBinary);
+    printf("equivalent binary number is = %d\n",revBinary);
 
     return 0;
-}
+} 

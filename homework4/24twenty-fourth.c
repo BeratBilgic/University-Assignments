@@ -1,20 +1,26 @@
 // 24.Write C code to convert a binary number into a decimal number without using array, function and while loop.
 
 #include <stdio.h>
+#include <math.h>
 
 int main()
 {
-    int num,binary,revBinary = 0,c = 1,i;
-    printf("enter the number\n");
-    scanf("%d",&num);
+    int binaryNum,binary,num = 0,i,a,digitNum;
+    printf("enter a binary number = ");
+    scanf("%d",&binaryNum);
 
-    for ( i = num; i > 0; i/=2 )
+    digitNum = log10(binaryNum);
+    a = pow(10,digitNum);
+
+    for (i = 0; i <= digitNum; i++)
     {
-        binary = i % 2;
-        revBinary = revBinary + (binary * c);
-        c = c * 10;
+        binary = binaryNum / a;
+        binaryNum %= a;
+        num = (num * 2) + binary;
+        a/=10;
     }
-    printf("%d\n",revBinary);
+    
+    printf("equivalent decimal number is = %d \n", num);
 
     return 0;
 }
