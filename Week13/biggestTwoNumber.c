@@ -7,6 +7,7 @@ int biggest(int arr[]);
 int main()
 {
     int input[g],n1,n2;
+    printf("enter 10 array elements\n");
     for (int i = 0; i < g; i++)
     {
         scanf("%d",&input[i]);
