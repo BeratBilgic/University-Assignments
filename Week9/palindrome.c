@@ -1,3 +1,5 @@
+// Lab 9 - Write a C program to check whether a given number from keyboard is Palindrome number or not.
+
 #include <stdio.h>
 
 int main()

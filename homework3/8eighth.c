@@ -1,4 +1,4 @@
-// 8. Write C code to print the SUM of numbers from LOW to HIGH. Test with LOW=3 and HIGH=9.
+// Homework 3 -  8. Write C code to print the SUM of numbers from LOW to HIGH. Test with LOW=3 and HIGH=9.
 
 #include <stdio.h>
 

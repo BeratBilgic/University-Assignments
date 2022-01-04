@@ -1,4 +1,4 @@
-// 13.Write C code to check whether a number is Strong number or not.
+// Homework 4 - 13.Write C code to check whether a number is Strong number or not.
 
 #include <stdio.h>
 

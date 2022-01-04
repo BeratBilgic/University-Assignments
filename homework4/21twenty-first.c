@@ -1,4 +1,4 @@
-// 21.Write C code to find the sum of the series 1 +11 + 111 + 1111 + .. n terms
+// Homework 4 - 21.Write C code to find the sum of the series 1 +11 + 111 + 1111 + .. n terms
 
 #include <stdio.h>
 

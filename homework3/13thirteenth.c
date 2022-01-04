@@ -1,4 +1,4 @@
-// 13.Write C code to print the multiplication table for 6's.
+// Homework 3 -  13.Write C code to print the multiplication table for 6's.
 
 #include <stdio.h>
 

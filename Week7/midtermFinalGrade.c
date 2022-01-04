@@ -1,3 +1,5 @@
+// Lab 7 - Student ID, visa and final information are entered from the keyboard for a student. Write the program in C language, which calculates the passing grade by taking 40% of the student's midterm and 60% of the final grade.
+
 #include <stdio.h>
 
 int main()

@@ -1,4 +1,4 @@
-// 12.Write C code to count and print all numbers from LOW to HIGH by steps of STEP. Test with LOW=0 and HIGH=100 and STEP=5.
+// Homework 3 -  12.Write C code to count and print all numbers from LOW to HIGH by steps of STEP. Test with LOW=0 and HIGH=100 and STEP=5.
 
 #include <stdio.h>
 
@@ -12,8 +12,7 @@ int main()
     printf("enter the value of STEP\n");
     scanf("%d",&STEP);
     i = LOW;
-    while (i <= HIGH)
-    {
+    while (i <= HIGH){
         printf("%d \n",i);
         i = i + STEP;
         count++;

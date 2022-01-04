@@ -1,4 +1,4 @@
-// 14.Write C code for computing factorial N (N!).
+// Homework 3 -  14.Write C code for computing factorial N (N!).
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 8. Write C code to find sum of all prime numbers between 1 to n.
+// Homework 4 - 8. Write C code to find sum of all prime numbers between 1 to n.
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 20.Write C code to find the sum of the series [ x - x^3 + x^5 + ......].
+// Homework 4 - 20.Write C code to find the sum of the series [ x - x^3 + x^5 + ......].
 
 #include <stdio.h>
 #include <math.h>

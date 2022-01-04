@@ -1,3 +1,5 @@
+// Lab 10 - Enter a value from the keyboard to the 8-element float array. Calculate the average of the entered values and print it on the screen.
+
 #include <stdio.h>
 
 int main()

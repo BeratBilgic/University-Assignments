@@ -1,4 +1,4 @@
-// 2. Calculate the area of a circle with given radius.
+// Homework 3 -  2. Calculate the area of a circle with given radius.
 
 #include <stdio.h>
 

@@ -1,3 +1,5 @@
+// Lab 9 - Write a C program to find the largest of three numbers A, B, and C given from keyboard.
+
 #include <stdio.h>
 
 int main()

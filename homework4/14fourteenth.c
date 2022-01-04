@@ -1,4 +1,4 @@
-// 14.Write C code to print all Strong numbers between 1 to n.
+// Homework 4 - 14.Write C code to print all Strong numbers between 1 to n.
 
 #include <stdio.h>
 

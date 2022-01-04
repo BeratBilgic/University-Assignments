@@ -1,4 +1,4 @@
-// 20.Write C code to count number of digits in a number.
+// Homework 3 -  20.Write C code to count number of digits in a number.
 
 #include <stdio.h>
 

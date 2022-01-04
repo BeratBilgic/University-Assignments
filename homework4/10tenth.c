@@ -1,4 +1,4 @@
-// 10.Write C code to print all Armstrong numbers between 1 to n.
+// Homework 4 - 10.Write C code to print all Armstrong numbers between 1 to n.
 
 #include <stdio.h>
 #include <math.h>

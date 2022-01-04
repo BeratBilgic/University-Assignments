@@ -1,4 +1,4 @@
-// 9. Write C code to check whether a number is Armstrong number or not.
+// Homework 4 - 9. Write C code to check whether a number is Armstrong number or not.
 
 #include <stdio.h>
 #include <math.h>

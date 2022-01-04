@@ -1,3 +1,5 @@
+// Lab 8 - Write C code to find the largest of three numbers A, B, and C.
+
 #include <stdio.h>
 
 int main(){

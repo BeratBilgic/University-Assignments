@@ -1,4 +1,4 @@
-// 1. Write C code that will read the two sides of a rectangle and calculate its area and perimeter.
+// Homework 4 - 1. Write C code that will read the two sides of a rectangle and calculate its area and perimeter.
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 17.Write C code with a natural number, n, as its input which calculates the following formula and writes the result in the standard output: S = 1⁄2 + 1⁄4 + ... +1/n.
+// Homework 3 -  17.Write C code with a natural number, n, as its input which calculates the following formula and writes the result in the standard output: S = 1⁄2 + 1⁄4 + ... +1/n.
 
 #include <stdio.h>
 

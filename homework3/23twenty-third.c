@@ -1,4 +1,4 @@
-// 23.Write C code to check whether a number is palindrome or not.
+// Homework 3 -  23.Write C code to check whether a number is palindrome or not.
 
 #include <stdio.h>
 

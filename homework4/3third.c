@@ -1,4 +1,4 @@
-// 3. Print Hello World 10 times
+// Homework 4 - 3. Print Hello World 10 times
 
 #include <stdio.h>
 

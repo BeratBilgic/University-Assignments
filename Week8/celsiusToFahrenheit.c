@@ -1,3 +1,5 @@
+// Lab 8 - Convert Temperature from Fahrenheit (°F) to Celsius (°C).
+
 #include <stdio.h>
 
 int main(){

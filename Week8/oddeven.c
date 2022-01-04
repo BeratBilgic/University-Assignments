@@ -1,3 +1,5 @@
+// Lab 8 - Determine and Output Whether Number N is Even or Odd.
+
 #include <stdio.h>
 
 int main(){

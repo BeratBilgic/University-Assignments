@@ -1,4 +1,4 @@
-// 10.Write C code to find the largest of three numbers A, B, and C.
+// Homework 3 -  10.Write C code to find the largest of three numbers A, B, and C.
 
 #include <stdio.h>
 

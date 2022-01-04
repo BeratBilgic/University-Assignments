@@ -1,4 +1,4 @@
-// 17.Write C code to display the n terms of harmonic series and their sum. (1 + 1/2 + 1/3 + 1/4 + 1/5 ... 1/n terms)
+// Homework 4 - 17.Write C code to display the n terms of harmonic series and their sum. (1 + 1/2 + 1/3 + 1/4 + 1/5 ... 1/n terms)
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 1. Write C code to add two numbers entered by user.
+// Homework 3 - 1. Write C code to add two numbers entered by user.
 
 #include <stdio.h>
 

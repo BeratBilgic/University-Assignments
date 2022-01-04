@@ -1,4 +1,4 @@
-// 12.Write C code to print all Perfect numbers between 1 to n.
+// Homework 4 - 12.Write C code to print all Perfect numbers between 1 to n.
 
 #include <stdio.h>
 

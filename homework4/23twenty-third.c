@@ -1,4 +1,4 @@
-// 23.Write C code to convert a decimal number into binary without using an array.
+// Homework 4 - 23.Write C code to convert a decimal number into binary without using an array.
 
 #include <stdio.h>
 

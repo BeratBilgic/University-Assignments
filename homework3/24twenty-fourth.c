@@ -1,4 +1,4 @@
-// 24.Write C code to find frequency of each digit in a given integer.
+// Homework 3 -  24.Write C code to find frequency of each digit in a given integer.
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 21.Write C code to find first and last digit of a number.
+// Homework 3 -  21.Write C code to find first and last digit of a number.
 
 #include <stdio.h>
 

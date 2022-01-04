@@ -1,4 +1,4 @@
-// 22.Write C code to swap first and last digits of a number.
+// Homework 3 -  22.Write C code to swap first and last digits of a number.
 
 #include <stdio.h>
 #include <math.h>

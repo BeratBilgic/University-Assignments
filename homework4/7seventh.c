@@ -1,4 +1,4 @@
-// 7.Write C code to print all Prime numbers between 1 to n.
+// Homework 4 - 7.Write C code to print all Prime numbers between 1 to n.
 
 #include <stdio.h>
 

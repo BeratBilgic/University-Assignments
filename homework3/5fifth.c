@@ -1,4 +1,4 @@
-// 5. Convert Temperature from Fahrenheit (°F) to Celsius (°C).
+// Homework 3 -  5. Convert Temperature from Fahrenheit (°F) to Celsius (°C).
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 4.Write C code to find the sum of the first 50 natural numbers.
+// Homework 4 - 4.Write C code to find the sum of the first 50 natural numbers.
 
 #include <stdio.h>
 

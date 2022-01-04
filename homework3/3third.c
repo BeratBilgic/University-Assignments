@@ -1,4 +1,4 @@
-// 3. Determine and Output Whether Number N is Even or Odd.
+// Homework 3 -  3. Determine and Output Whether Number N is Even or Odd.
 
 #include <stdio.h>
 

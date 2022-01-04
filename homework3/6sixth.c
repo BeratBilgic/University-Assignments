@@ -1,4 +1,4 @@
-// 6. Write C code to convert the length in feet to centimeter.
+// Homework 3 -  6. Write C code to convert the length in feet to centimeter.
 
 #include <stdio.h>
 

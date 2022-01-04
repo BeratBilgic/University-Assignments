@@ -1,4 +1,4 @@
-// 11.Write C code for a program that reads 10 numbers from the user and prints out their sum, and their product.
+// Homework 3 -  11.Write C code for a program that reads 10 numbers from the user and prints out their sum, and their product.
 
 #include <stdio.h>
 

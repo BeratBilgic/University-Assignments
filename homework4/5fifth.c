@@ -1,4 +1,4 @@
-// 5.Write C code to calculate 2^4.
+// Homework 4 - 5.Write C code to calculate 2^4.
 
 #include <stdio.h>
 

@@ -1,3 +1,5 @@
+// Lab 7 - The radius information and the operation type of a circle are entered from the keyboard. If the operation type is 1, the perimeter of the circle is calculated and printed, and if the operation type is 2, the area is calculated and printed.
+
 #include <stdio.h>
 
 int main()

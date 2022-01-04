@@ -1,3 +1,5 @@
+// Lab 10 - Write a program that assigns the digits of the maximum 5-digit number to an array and prints it to the screen.
+
 #include <stdio.h>
 #include <math.h>
 
@@ -22,8 +24,6 @@ int main()
     {
         printf("%d\n",dgtary[i]);
     }
-    
-    
     
     return 0;
 }

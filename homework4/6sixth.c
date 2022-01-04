@@ -1,4 +1,4 @@
-// 6. Write C code to find LCM of two numbers.
+// Homework 4 - 6. Write C code to find LCM of two numbers.
 
 #include <stdio.h>
 

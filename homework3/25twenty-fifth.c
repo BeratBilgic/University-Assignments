@@ -1,4 +1,4 @@
-// 25.Write C code to find HCF (Highest Common Factor) of two numbers.
+// Homework 3 -  25.Write C code to find HCF (Highest Common Factor) of two numbers.
 
 #include <stdio.h>
 

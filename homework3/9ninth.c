@@ -1,4 +1,4 @@
-// 9. Write C code to print all numbers between LOW and HIGH that are divisible by NUMBER.
+// Homework 3 -  9. Write C code to print all numbers between LOW and HIGH that are divisible by NUMBER.
 
 #include <stdio.h>
 

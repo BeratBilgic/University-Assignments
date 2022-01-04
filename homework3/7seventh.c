@@ -1,4 +1,4 @@
-// 7. Write C code to print the square of all numbers from 1 to 10.
+// Homework 3 -  7. Write C code to print the square of all numbers from 1 to 10.
 
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-// 18.Write C code to convert a decimal number, n, to binary format?
+// Homework 3 -  18.Write C code to convert a decimal number, n, to binary format?
 
 #include <stdio.h>
 
@@ -18,6 +18,7 @@ int main(){
     {
         printf("%d",m[i]);
     }
+    printf("\n");
     
 return 0;
 }

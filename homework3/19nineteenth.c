@@ -1,4 +1,4 @@
-// 19.Write C code to print multiplication table of any number.
+// Homework 3 -  19.Write C code to print multiplication table of any number.
 
 #include <stdio.h>
 

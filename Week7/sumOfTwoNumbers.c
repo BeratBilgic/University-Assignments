@@ -1,3 +1,5 @@
+// Lab 7 - Write the program with the C language, which computes the sum of the two numbers entered on the keyboard.
+
 #include <stdio.h>
 
 int main()

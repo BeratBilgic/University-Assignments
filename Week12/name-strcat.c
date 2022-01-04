@@ -1,3 +1,5 @@
+// Lab 12 - Write C Program to Concatenate Two Strings.
+
 #include <stdio.h>
 
 int main()
@@ -9,15 +11,13 @@ int main()
     printf("enter a your surname\n");
     gets(surName);
 
-    while (name[i] != '\0')
-    {
+    while (name[i] != '\0'){
         fullName[i] = name[i];
         i++;
     }
     fullName[i] = ' ';
     i++;
-    while (surName[j] != '\0')
-    {
+    while (surName[j] != '\0'){
         fullName[i] = surName[j];
         i++;
         j++;

@@ -1,43 +1,28 @@
+// Lab 13 - Write a program that puts the characters in the string sent to the function in alphabetical order.
+
 #include <stdio.h>
-#include <string.h>
 
-int toSort(char arr[], int n1);
+void setString(char str[]);
 
-int main()
-{
-    int len;
-    char str[32],output[32];
-    printf("Enter a string :");
-    gets(str);
-    len = strlen(str);
+int main(){
+    char str1[32];
+    printf("Enter a string: ");
+    gets(str1);
+    setString(str1);
+    puts(str1);
 
-    for (int i = 0; i < len; i++)
-    {
-        output[i] = toSort(str,len);
-    }
-    puts(output);
-    
     return 0;
 }
 
-int toSort(char arr[], int n1)
-{
-    int a = 'z';
-    for (int i = 0; i < n1; i++)
-    {
-        if (arr[i] < a)
-        {
-            a = arr[i];
+void setString(char str[]){
+    char a; 
+    for (int i = 0; str[i] != '\0'; i++){
+        for (int j = 0; str[j] != '\0'; j++){
+            if (str[i] < str[j] && str[i] != ' '){
+                a = str[i];
+                str[i] = str[j];
+                str[j] = a; 
+            }   
         }
     }
-    for (int i = 0; i < n1; i++)
-    {
-        if (arr[i] == a)
-        {
-            arr[i] = 'z';
-            break;
-        }
-    }
-
-    return a;   
 }

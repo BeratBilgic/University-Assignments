@@ -1,3 +1,5 @@
+// Lab 12 - Write C Program to Count the Number of Vowels, Consonants and so on
+
 #include <stdio.h>
 
 int main ()
@@ -7,23 +9,18 @@ int main ()
     printf("Enter a string : ");
     gets(str);
 
-    for (int i = 0; str[i] != '\0'; i++)
-    {
-        if (str[i] == ' ')
-        {
+    for (int i = 0; str[i] != '\0'; i++){
+        if (str[i] == ' '){
             spaces++;
         }
-        else if (str[i] >= '0' && str[i] <= '9')
-        {
+        else if (str[i] >= '0' && str[i] <= '9'){
             digit++;
         }
         else if (str[i]== 'a' || str[i]== 'A' || str[i]== 'e' || str[i]== 'E' || str[i]== 'i' || str[i]== 'I' ||
-                str[i]== 'o' || str[i]== 'O' || str[i]== 'u' || str[i]== 'U' )
-        {
+                str[i]== 'o' || str[i]== 'O' || str[i]== 'u' || str[i]== 'U' ){
             vowels++;
         }
-        else if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
-        {
+        else if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')){
             consonants++;
         }
     }

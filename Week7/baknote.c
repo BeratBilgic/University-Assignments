@@ -1,3 +1,5 @@
+// Lab 7 - The amount of money entered from the keyboard is desired to be created using the minimum number of banknotes. For this purpose, the number of each banknote (100, 50, 20 and 10) must be determined for the amount entered. Note: The amount of money entered on the keyboard must be multiples of 10.
+
 #include <stdio.h>
 
 int main()

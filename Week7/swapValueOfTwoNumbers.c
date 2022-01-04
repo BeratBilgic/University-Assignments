@@ -1,3 +1,5 @@
+// Lab 7 - Two numbers are entered from the keyboard with integer variables A and B. Write the program with the C language, which changes the values of the A and B variables between them.
+
 #include <stdio.h>
 
 int main()

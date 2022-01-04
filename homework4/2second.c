@@ -1,4 +1,4 @@
-// 2. Write C code to find all the roots of a quadratic equation ax2+bx+c=0.
+// Homework 4 - 2. Write C code to find all the roots of a quadratic equation ax2+bx+c=0.
 
 #include <stdio.h>
 #include <math.h>

@@ -1,4 +1,4 @@
-// 15.Write C code to print all natural numbers in reverse (from n to 1).
+// Homework 3 -  15.Write C code to print all natural numbers in reverse (from n to 1).
 
 #include <stdio.h>
 

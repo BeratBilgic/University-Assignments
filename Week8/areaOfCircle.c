@@ -1,3 +1,5 @@
+// Lab 8 - Calculate the area of a circle with given radius.
+
 #include <stdio.h>
 
 int main(){

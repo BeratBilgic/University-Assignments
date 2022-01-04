@@ -1,3 +1,5 @@
+// Lab 8 - Determine Whether a Temperature is Below or Above the Freezing Point.
+
 #include <stdio.h>
 
 int main(){

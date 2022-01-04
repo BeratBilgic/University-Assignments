@@ -1,3 +1,5 @@
+// Lab 9 - Write a C program for computing factorial N (N!).
+
 #include <stdio.h>
 
 int main()

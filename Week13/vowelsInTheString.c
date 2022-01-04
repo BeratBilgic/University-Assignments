@@ -1,3 +1,5 @@
+// Lab 13 - Write the function that finds how many vowels are in the word sent by the user.
+
 #include <stdio.h>
 
 int main()
