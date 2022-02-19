@@ -5,7 +5,7 @@
 int main(){
     srand(time(0));
     int x,y,sum,point;
-    printf("Roll the dice\n");
+    printf("\nRoll the dice\n");
     x = rand() % 6 + 1;
     y = rand() % 6 + 1;
     printf("%d %d\n",x,y);
