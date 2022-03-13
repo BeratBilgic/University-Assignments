@@ -4,8 +4,9 @@
 
 int main(){
     srand(time(0));
-    int x,y,sum,point;
+    int x,y,sum = 0,point = 0;
     printf("\nRoll the dice\n");
+    getchar();
     x = rand() % 6 + 1;
     y = rand() % 6 + 1;
     printf("%d %d\n",x,y);
@@ -19,9 +20,12 @@ int main(){
             printf("GAME OVER\n");
             point += sum;
             break;
+        }else{
+            point += sum;
         }
         while (sum != 7){
             printf("Roll the dice\n");
+            getchar();
             x = rand() % 6 + 1;
             y = rand() % 6 + 1;
             printf("%d %d\n",x,y);
