@@ -16,7 +16,7 @@ int main(){
             printf("YOU WON\n");
             point += sum;
             break;
-        }else if(sum == 2 || sum == 3 || sum == 10){
+        }else if(sum == 2 || sum == 3 || sum == 12){
             printf("GAME OVER\n");
             point += sum;
             break;
