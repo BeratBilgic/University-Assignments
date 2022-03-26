@@ -11,10 +11,8 @@ int main(){
     {
         strcpy((ptr+i),&name[i]);
     }
-    for (int k = 0; k < 5; k++)
-    {
-        printf("%c",*(ptr+k));
-    }
+    
+    printf("%s",(ptr));  
     printf("\n");
 
     ptr = (char*)realloc(ptr, 12);
@@ -25,10 +23,8 @@ int main(){
     {
         strcpy((ptr+i),&surname[j]);
     }
-    for (int k = 0; k < 12; k++)
-    {
-        printf("%c",*(ptr+k));
-    }
+    
+    printf("%s",(ptr));  
 
     return 0;
 }

@@ -12,6 +12,12 @@ int main(){
         printf("Enter value\n");
         scanf("%d",&*(ptr+i));
     }
+    
+    for (int k = 0; k < n; k++)
+    {
+        printf("address = %d\tvalue = %d \n",(ptr+k),*(ptr+k));
+    }
+
     printf("Enter the new number of terms\n");
     scanf("%d",&n);
     ptr = (int*)realloc(ptr, n);
@@ -24,7 +30,7 @@ int main(){
     }
     for (int k = 0; k < n; k++)
     {
-        printf("%d ",*(ptr+k));
+        printf("address = %d\tvalue = %d \n",(ptr+k),*(ptr+k));
     }
     
     return 0;
