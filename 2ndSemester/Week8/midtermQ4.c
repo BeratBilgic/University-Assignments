@@ -14,21 +14,12 @@ int main(){
     ptr = (int*)malloc(1*sizeof(int));
 
     len = i;
-    for (int j = 0; j < len; j++)
-    {
-        printf("%d",binary[j]);
-    }
-    printf("\n");
 
     for (int j = 0; j < len; j++)
     {
         ptr = (int*)realloc(ptr,j+1);
         i--;
         *(ptr + j) =  binary[i];
-    }
-    
-    for (int j = 0; j < len; j++)
-    {
         printf("%d",*(ptr + j));
     }
 
