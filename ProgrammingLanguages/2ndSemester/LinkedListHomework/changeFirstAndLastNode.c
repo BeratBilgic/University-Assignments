@@ -2,51 +2,51 @@
 #include <stdlib.h>
 
 struct node{
-    int age;
-    struct node *next;                         
+    int number;
+    struct node *next;
 };
 
 typedef struct node node;
 
 node* createList();
 void traverseList(node* head);
-node* deleteNode(node* head,int delAge);
+node* changeFirstAndLast(node* head); 
 
 int main(){
-    int delAge;
     node *head,p;
     head = createList();
     traverseList(head);
-    printf("Age you want to delete = ");
-    scanf("%d",&delAge);
-    head = deleteNode(head,delAge);
+    head = changeFirstAndLast(head);
     traverseList(head);
     
     return 0;
 }
 
-node* deleteNode(node* head,int delAge){
+node* changeFirstAndLast(node* head){
     node *p, *ex;
     p = head;
     while (p != NULL)
     {
-        if (p->age == delAge && p == head)
+        if (p->next == NULL && p == head)
         {
-            head = head->next;
-            free(p);
             break;
-        }else if (p->age == delAge)
+        }else if (p->next == NULL && head->next == p)
         {
-            ex->next = p->next;
-            free(p);
+            p->next = head;
+            head->next = NULL;
+            break;
+        }else if (p->next == NULL)
+        {
+            p->next = head->next;
+            ex->next = head;
+            head->next = NULL;
             break;
         }
         ex = p;
         p = p->next;
     }
-    return head;
+    return p;
 }
-
 
 node* createList(){
     node *ptr,*head;
@@ -62,7 +62,7 @@ node* createList(){
             ptr->next = (node*)malloc(sizeof(node));
             ptr = ptr->next;
         }
-        ptr->age = i+20;
+        ptr->number = i+1;
     }
     ptr->next = NULL;
     return head;
@@ -74,7 +74,7 @@ void traverseList(node* head){
     printf("\n");
     while (p != NULL)
     {
-        printf("%d\t",p->age);
+        printf("%d\t",p->number);
         p = p->next;
     } 
     printf("\n");     

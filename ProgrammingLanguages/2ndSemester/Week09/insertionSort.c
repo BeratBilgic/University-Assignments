@@ -5,6 +5,8 @@ void printArray(int arr[], int len);
 
 int main(){
     int arr[] = {5,6,2,3,8,1,4,7};
+    printArray(arr,8);
+    printf("**********\n");
     insertionSort(arr,8);
     printf("**********\n");
     printArray(arr,8);
@@ -21,7 +23,7 @@ void insertionSort(int arr[], int len){
             {
                 arr[j+1] = arr[j];
                 arr[j] = temp;
-                printArray(arr,i);
+                printArray(arr,len);
             }
         }
     }

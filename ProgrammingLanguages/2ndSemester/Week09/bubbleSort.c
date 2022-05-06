@@ -5,6 +5,8 @@ void printArray(int arr[], int len);
 
 int main(){
     int arr[] = {5,6,2,3,8,1,4,7};
+    printArray(arr,8);
+    printf("**********\n");
     bubbleSort(arr,8);
     printf("**********\n");
     printArray(arr,8);
