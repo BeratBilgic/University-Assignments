@@ -43,7 +43,7 @@ int main(){
         }
     }
     
-
+    return 0;
 }
 
 void traverseList(student* head){
