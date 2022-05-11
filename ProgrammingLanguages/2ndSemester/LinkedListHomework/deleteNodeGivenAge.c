@@ -14,7 +14,7 @@ node* deleteNode(node* head,int delAge);
 
 int main(){
     int delAge;
-    node *head,p;
+    node *head;
     head = createList();
     traverseList(head);
     printf("Age you want to delete = ");

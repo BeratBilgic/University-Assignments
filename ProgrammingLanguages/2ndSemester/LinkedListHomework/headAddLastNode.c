@@ -13,7 +13,7 @@ void traverseList(node* head);
 node* cutheadaddlast(node* head); 
 
 int main(){
-    node *head,p;
+    node *head;
     head = createList();
     traverseList(head);
     head = cutheadaddlast(head);

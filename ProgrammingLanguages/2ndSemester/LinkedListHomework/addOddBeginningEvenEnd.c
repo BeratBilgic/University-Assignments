@@ -15,7 +15,7 @@ node* addEnd(node* last, int num);
 
 int main(){
     int num;
-    node *head,*new,*last;
+    node *head,*last;
     head = (node*)malloc(sizeof(node));
     head->next = (node*)malloc(sizeof(node));
     printf("Enter the number = ");

@@ -13,7 +13,7 @@ void traverseList(node* head);
 node* changeFirstAndLast(node* head); 
 
 int main(){
-    node *head,p;
+    node *head;
     head = createList();
     traverseList(head);
     head = changeFirstAndLast(head);

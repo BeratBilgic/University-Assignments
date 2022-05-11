@@ -14,7 +14,7 @@ node* deleteMiddleElement(node* head,int len);
 
 int main(){
     int counter;
-    node *head,p;
+    node *head;
     head = createList();
     counter = traverseList(head);
     head = deleteMiddleElement(head,counter);
