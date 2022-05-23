@@ -13,6 +13,7 @@ int main(){
     while(loop){
         printf("\n1 - Create Student File\n2 - List whole file content \n");
         printf("3 - List single line according to name\n4 - Add new record at the end\n");
+        printf("0 - Exit\n");
         //printf("5 - Update a record\n");
         scanf("%d",&key);
         switch (key)

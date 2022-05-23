@@ -11,6 +11,7 @@ int main(){
     while(loop){
         printf("\n1 - Create Student File \n2 - Print students with midterm grade greater than 50\n3 - Print midterm average\n");
         //printf("4 - Add 10 points to students with a midterm grade of less than 50\n");
+        printf("0 - Exit\n");
         scanf("%d",&key);
         switch (key)
         {

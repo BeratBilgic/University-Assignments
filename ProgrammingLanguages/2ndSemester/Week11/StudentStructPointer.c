@@ -28,7 +28,7 @@ int main(){
         printf("3 - Update Record\n");
         printf("4 - Calculate Class Average\n");
         printf("5 - Show Best Student Record\n");
-        printf("Any Key - Exit\n");
+        printf("0 - Exit\n");
         printf("Your Choice = ");
         scanf("%d",&key);
         printf("\n");

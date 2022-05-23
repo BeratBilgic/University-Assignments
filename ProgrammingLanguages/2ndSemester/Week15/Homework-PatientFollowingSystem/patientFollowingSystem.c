@@ -2,7 +2,6 @@
 #include <string.h>
 
 struct patient{
-    int id;
     char name[30];
     int age;
     char illnessInfo[50];
@@ -10,7 +9,7 @@ struct patient{
 
 typedef struct patient patient; 
 
-int addRecord(FILE *ptr, int counter);
+void addRecord(FILE *ptr);
 void findByName(FILE *ptr);
 void deleteRecord(FILE *ptr);
 void modifyRecord(FILE *ptr);
@@ -28,7 +27,7 @@ int main(){
         switch (key)
         {
         case 1:
-            counter = addRecord(mfPtr,counter);
+            addRecord(mfPtr);
             break;
         case 2:
             findByName(mfPtr);
@@ -51,7 +50,7 @@ int main(){
     return 0;
 }
 
-int addRecord(FILE *ptr, int counter){
+void addRecord(FILE *ptr){
     patient patient;
     int n;
     if ((ptr = fopen("patients","a+")) == NULL)
@@ -66,19 +65,17 @@ int addRecord(FILE *ptr, int counter){
         {
             printf("Enter the name, age and illness information\n");
             scanf("%s%d%s",patient.name,&patient.age,patient.illnessInfo);
-            counter++;
-            patient.id = counter;
             fwrite(&patient, sizeof(patient), 1, ptr);
         }
         
         fclose(ptr);
     }
-    return counter;
 }
 
 void findByName(FILE *ptr){
+    int counter = 1;
     char name[30];
-    patient patient = {0,"",0,""};
+    patient patient = {"",0,""};
     if ((ptr = fopen("patients","r")) == NULL)
     {
         printf("File could not be opened\n");
@@ -86,17 +83,18 @@ void findByName(FILE *ptr){
     {
         printf("Patient Name = ");
         scanf("%s",name);
-        printf("\n%-4s%-13s%-8s%s\n","Id","Name","Age","Illness Information");
+        printf("\n%-4s%-12s%-8s%s\n","ID","Name","Age","Illness Information");
         
         fread(&patient, sizeof(patient),1,ptr);
         while (!feof(ptr))
         {
             if (strcmp(name,patient.name) == 0)
             {
-                printf("%-4d%-13s%-8d%s\n",patient.id,patient.name,patient.age,patient.illnessInfo);  
+                printf("%-4d%-12s%-8d%s\n",counter,patient.name,patient.age,patient.illnessInfo);  
             }
              
             fread(&patient, sizeof(patient),1,ptr);
+            counter++;
         }
         fclose(ptr);
     }
@@ -104,7 +102,7 @@ void findByName(FILE *ptr){
 
 void deleteRecord(FILE *ptr){
     int id;
-    patient patient = {0,"",0,""};
+    patient patient = {"",0,""};
     if ((ptr = fopen("patients","r+")) == NULL)
     {
         printf("File could not be opened\n");
@@ -122,7 +120,7 @@ void deleteRecord(FILE *ptr){
 
 void modifyRecord(FILE *ptr){
     int id;
-    patient patient = {0,"",0,""};
+    patient patient = {"",0,""};
     if ((ptr = fopen("patients","r+")) == NULL)
     {
         printf("File could not be opened\n");
@@ -143,23 +141,25 @@ void modifyRecord(FILE *ptr){
 }
 
 void printRecords(FILE *ptr){
-    patient patient = {0,"",0,""};
+    patient patient = {"",0,""};
+    int counter = 1;
     if ((ptr = fopen("patients","r")) == NULL)
     {
         printf("File could not be opened\n");
     }else
     {
-        printf("\n%-4s%-13s%-8s%s\n","Id","Name","Age","Illness Information");
+        printf("\n%-4s%-12s%-8s%s\n","ID","Name","Age","Illness Information");
         
         fread(&patient, sizeof(patient),1,ptr);
         while (!feof(ptr))
         {   
-            if (patient.id != 0)
+            if (strcmp(patient.name,"") != 0)
             {
-                printf("%-4d%-13s%-8d%s\n",patient.id,patient.name,patient.age,patient.illnessInfo);  
+                printf("%-4d%-12s%-8d%s\n",counter,patient.name,patient.age,patient.illnessInfo); 
             }
-            
+
             fread(&patient, sizeof(patient),1,ptr);
+            counter++;
         }
         fclose(ptr);
     }
