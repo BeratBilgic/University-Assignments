@@ -25,7 +25,7 @@ int main(){
     }else
     {
         int isBalanced = checkBrackets(fptr);
-        if (isBalanced == 1)
+        if (isBalanced)
         {
             printf("\nParentheses/braces are nested properly\n");
         }else
@@ -50,14 +50,14 @@ int checkBrackets(FILE *fptr){
         if (ch == '(' || ch == '[' || ch == '{')
         {   
             push(stk, ch);
-
             printf("%-10c%-10s" ,ch ,"push");
             printAllStack(stk);
+
         }else if (ch == ')' || ch == ']' || ch == '}')
         {
             topData = pop(stk);
 
-            if (isMatchingBrackets(topData, ch) != 1)
+            if (!isMatchingBrackets(topData, ch))
             {
                 push(stk, topData);
                 printf("%-10c%-10s" ,ch ,"error");
