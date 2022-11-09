@@ -121,7 +121,7 @@ int countList(node *head){
 }
 
 node *delete(node *head, int num){
-    if (head == NULL || !num)
+    if (head == NULL)
         return head;
 
     node *temp = head, *prev;

@@ -87,7 +87,7 @@ node* addEnd(node *head, int num){
     if (head == NULL)
     {
         head = temp;
-        temp->next = head;
+        head->next = head;
     }else
     {
         last = getLast(head);
@@ -133,7 +133,7 @@ int countList(node *head, node *temp){
 }
 
 node *delete(node *head, int num){
-    if (head == NULL || !num)
+    if (head == NULL)
         return head;
 
     node *temp = head, *ex, *last;
@@ -146,7 +146,6 @@ node *delete(node *head, int num){
             head = head->next;
             last->next = head;
         }   
-        head = NULL;
         free(temp);
     }else if (last->data == num)
     {
@@ -158,30 +157,29 @@ node *delete(node *head, int num){
         temp->next = head;
         free(last);
     }else{
-        while (temp != NULL)
+        do
         {
+            ex = temp;
+            temp = temp->next;
             if (temp->data == num)
             {
                 ex->next = temp->next;
                 free(temp);
                 break;
             }
-            ex = temp;
-            temp = temp->next;
-        }
+        }while (temp != head);
     }
     return head;
 }
 
 node *destroy(node *head){
     node *temp = head, *deleted;
-
-    while (temp != head)
+    do
     {
         deleted = temp;
         temp = temp->next;
         free(deleted);
-    }
+    }while (temp != head);
 
     return NULL;
 }
