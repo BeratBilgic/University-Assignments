@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Gamer {
@@ -44,6 +45,27 @@ public class Gamer {
                     break;
             }
         }while (isInputInvalid);
+    }
+
+    public void moveAuto(){
+        if (Game.isIsGameOver())
+            return;
+
+        Random random = new Random();
+        int randomNum = random.nextInt(3);
+
+        switch (randomNum)
+        {
+            case 0:
+                sign = HandSign.PAPER;
+                break;
+            case 1:
+                sign = HandSign.SCISSOR;
+                break;
+            case 2:
+                sign = HandSign.ROCK;
+                break;
+        }
     }
 
     public static int getNumofDraw() {
