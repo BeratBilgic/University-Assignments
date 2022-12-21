@@ -148,7 +148,19 @@ BST *newNode(int data){
     return p;
 }
 
+BST *destroy(BST *root){
+    if (root == NULL)
+        return NULL;
+        
+    destroy(root->left);
+    destroy(root->right);
+
+    free(root);
+    return NULL;
+} 
+
 BST *insertExampleTree(BST *root){
+    root = destroy(root);
     root = insert(root, 8);
     root = insert(root, 3);
     root = insert(root, 10);
