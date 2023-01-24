@@ -39,7 +39,7 @@ int rightChild(int i)
 void insert(PQ *pq, int x)
 {
     if (pq->cnt == QUEUE_SIZE)
-        printf("Queue is full");
+        printf("\nQueue is full\n");
     else
     {
         pq->cnt++;
@@ -48,10 +48,7 @@ void insert(PQ *pq, int x)
 
         while (iter > 1 && pq->arr[iter] < pq->arr[parent(iter)])
         {
-            int temp = pq->arr[iter];
-            pq->arr[iter] = pq->arr[parent(iter)];
-            pq->arr[parent(iter)] = temp;
-
+            swap(&pq->arr[iter], &pq->arr[parent(iter)]);
             iter = iter / 2;
         }
     }
@@ -70,7 +67,8 @@ int deleteMin(PQ *pq)
         int min = pq->arr[iter];
         pq->arr[iter] = pq->arr[pq->cnt];
 
-        while (iter * 2 <= pq->cnt && (pq->arr[iter] > pq->arr[rightChild(iter)] || pq->arr[iter] > pq->arr[leftChild(iter)]))
+        while (iter * 2 <= pq->cnt && (pq->arr[iter] > pq->arr[rightChild(iter)] 
+                || pq->arr[iter] > pq->arr[leftChild(iter)]))
         {
             if (rightChild(iter) > pq->cnt)
             {
