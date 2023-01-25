@@ -9,14 +9,14 @@ there is a path between two given vertices
 in a diagram which is represented by matrix, false otherwise
 */
 
-int existsPathTwoVertices (int diagram[N][N], int source, int dest){
+int existsPathTwoVert (int diagram[N][N], int source, int dest){
     if (diagram[source][dest]){
         return 1;
     }
 
     for (int i = 0; i < N; i++)
         {
-            if (diagram[source][i] && existsPathTwoVertices(diagram, i, dest))
+            if (diagram[source][i] && existsPathTwoVert(diagram, i, dest))
             {
                 return 1;
             }
@@ -26,7 +26,7 @@ int existsPathTwoVertices (int diagram[N][N], int source, int dest){
 }
 
 void checkPath (int diagram[N][N], int source, int dest){
-    if (existsPathTwoVertices(diagram, source-1, dest-1))
+    if (existsPathTwoVert(diagram, source-1, dest-1))
         printf("\n%d -> %d path exists\n", source, dest);
     else
         printf("\n%d -> %d path not exists\n", source, dest);
