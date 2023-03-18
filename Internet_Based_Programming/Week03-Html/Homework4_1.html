@@ -1,0 +1,74 @@
+<!-- First, create a form. Have inputs and button. 
+Then implement it with Form Action using Get and Post methods with different target attributes. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Form Example</title>
+</head>
+<body>
+  <h1>Form Action Example 1</h1>
+	<form>
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" placeholder="Write your name"><br>
+
+        <label for="lastname">Last Name:</label>
+		<input type="text" id="lastname" name="lastname" minlength="3" maxlength="10"><br>
+
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email"><br>
+
+		<label for="phone">Phone:</label>
+		<input type="tel" id="phone" name="phone"><br>
+
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password"><br>
+
+		<label for="gender">Gender:</label>
+		<input type="radio" id="male" name="gender" value="male">
+		<label for="male">Male</label>
+		<input type="radio" id="female" name="gender" value="female">
+		<label for="female">Female</label><br>
+
+		<label for="newsletter">Subscribe to Newsletter:</label>
+        <label for="Yes">Yes</label>
+		<input type="checkbox" id="newsletter" name="newsletter" value="yes">
+        <label for="Yes">Yes</label>
+        <input type="checkbox" id="newsletter" name="newsletter" value="yes"><br>
+
+        <Select>
+            <option value="Opt1" >Opt1</option>
+            <option value="Opt2" >Opt2</option>
+            <option value="Opt3" >Opt3</option>
+        </Select><br>
+
+		<label for="comments">Comments:</label><br>
+		<textarea id="comments" name="comments" rows="5" cols="40"></textarea><br>
+
+		<input type="submit" value="Submit with GET method" formaction="http://www.example.com/form" formmethod="get" formtarget="_blank">
+		<input type="submit" value="Submit with POST method" formaction="http://www.example.com/form" formmethod="post" formtarget="_self">
+	</form>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Action Example</title>
+  </head>
+  <body>
+    <h1>Form Action Example 2</h1>
+    <form method="get" action="https://www.example.com/search" target="_blank">
+      <label for="search-query">Search Query:</label>
+      <input type="text" id="search-query" name="q" />
+      <br />
+      <button type="submit">Search (Open in new tab)</button>
+    </form>
+    <form method="post" action="https://www.example.com/feedback" target="_self">
+      <label for="feedback-message">Feedback Message:</label>
+      <textarea id="feedback-message" name="message"></textarea>
+      <br />
+      <button type="submit">Submit Feedback (Open in same tab)</button>
+    </form>
+  </body>
+</html>
