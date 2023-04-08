@@ -1,0 +1,30 @@
+<!-- Addition HW: Implement a simple canvas application in HTML5. -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Example</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+  </head>
+  <body>
+    <p>Addition HW: Implement a simple canvas application in HTML5</p>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        
+        ctx.fillStyle = "purple";
+        ctx.fillRect(50, 50, 100, 100);
+
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.arc(250, 250, 50, 0, 2 * Math.PI);
+        ctx.fill();
+    </script>
+  </body>
+</html>

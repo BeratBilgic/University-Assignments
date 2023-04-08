@@ -1,0 +1,15 @@
+p, .blue, #first, div span{
+    color: blue;
+}
+
+:lang(en){
+    color: red;
+}
+
+u1 em{
+    color: purple;
+}
+
+h1#wheat{
+    color: wheat;
+}
