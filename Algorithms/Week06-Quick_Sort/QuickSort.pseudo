@@ -1,0 +1,19 @@
+//T(n) = O(n*logn)
+procedure quickSort(arr, left, right) do
+    if (left < right)
+        pi = partition(arr,left, right)
+        quickSort(arr, left, pi -1)
+        quickSort(arr, pi + 1, right)
+end procedure
+
+//T(n) = O(n)
+procedure partition(arr, left, right) do
+    x = arr[left]
+    i = left
+    for j = left+1 to right
+        if A[j] <= x
+            i = i + 1
+            swap A[i] and A[j]
+    swap A[left] and A[i]
+    return i        
+end procedure

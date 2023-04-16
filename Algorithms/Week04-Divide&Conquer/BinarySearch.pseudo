@@ -1,0 +1,14 @@
+//T(n) = O(logn)
+
+procedure binarySearch(arr, x, left, right) do
+    if left<=right
+        mid = (left + right) / 2 
+        if x == arr[mid]
+            return mid
+        else if x > arr[mid]        
+            return binarySearch(arr, x, mid + 1, right)
+        else                              
+            return binarySearch(arr, x, left, mid - 1)
+    else
+        return false
+end procedure

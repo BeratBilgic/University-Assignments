@@ -1,0 +1,15 @@
+//T(n) = O(logn)
+
+procedure power(x, n) do
+    if n=1
+        return x
+    if n=0
+        return 1
+
+    if n is even
+        result = power(x, n/2)
+        return result * result
+    else
+        result = power(x, (n-1)/2)
+        return x * result * result
+end procedure
