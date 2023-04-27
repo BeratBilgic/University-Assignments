@@ -32,5 +32,5 @@ ctx.fillText("Hello Word!", 50, 50);
 document.body.appendChild(canvas);
 
 var img = new Image();
-img.src = '../Week03-HTML_CSS/PepeLaugh.jpeg';
+img.src = '../Homework02/PepeLaugh.jpeg';
 document.body.appendChild(img);
