@@ -1,6 +1,7 @@
 # Matrix multiplication: Strassen’s algorithm
 <br />
 
+```math
 $$
 \left(\begin{array}{cc} 
 A11 & A12\\
@@ -17,6 +18,7 @@ C11 & C12\\
 C21 & C22
 \end{array}\right)
 $$
+```
 
 <br />
 
@@ -33,6 +35,7 @@ C12 = M3 + M5 <br />
 C21 = M2 + M4 <br />
 C22 = M1 − M2 + M3 + M6 <br />
 
+```math
 $$
 \left(\begin{array}{cc} 
 C11 & C12\\
@@ -44,6 +47,7 @@ M1 + M4 -M5 + M7 & M3 + M5\\
 M2 + M4 & M1 - M2 + M3 + M6
 \end{array}\right)
 $$
+```
 
 <br />
 
