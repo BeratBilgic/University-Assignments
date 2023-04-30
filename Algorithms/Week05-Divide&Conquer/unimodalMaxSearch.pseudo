@@ -1,0 +1,23 @@
+// An array A[1..n] is unimodal if it consists of an increasing sequence 
+// followed by a decreasing sequence, or more precisely, if there is an index 
+// such that m € 1,2, ...,n, such that
+// • A[i] < A[i + 1] for all 1 <= i < m, and
+// • A[i] > A[i + 1] for all m <= i < n.
+// In particular, A[m] is the maximum element, and it is the unique "locally maximum" element 
+// surrounded by smaller element (A[m - 1] and A|m + 1]). 
+// Give an algorithm to compute the maximum element of a unimodal input array A[1..n] in O(logn) time. 
+// Prove the correctness of your algorithm, and prove the bound on its running time.
+
+//T(n) = T(n/2) + O(1)
+//T(n) = O(logn)
+procedure unimodalSearch(array, p, q) do
+    if(p < q)
+        mid = (array[p] + array[q]) / 2
+
+        if array[mid] < array[mid+1]
+            unimodalSearch(array, mid+1, q)
+        else
+            unimodalSearch(array, p, mid)
+    else
+        return array[p]
+end procedure

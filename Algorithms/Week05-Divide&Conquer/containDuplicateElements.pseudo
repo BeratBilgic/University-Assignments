@@ -1,0 +1,18 @@
+/*
+Write an efficient algorithm(not O(n^2)) that returns True
+if there are redundant elements in the array, False otherwise.
+5 1 8 9 3 4 2 10 -> False
+5 8 1 3 4 2 8 7 -> True (array contains two elements 8)
+*/
+
+//mergeSort -> T(n) = O(n*logn)
+//T(n) = O(n*logn) + O(n) = O(n*logn)
+procedure isRedundant(array) do
+    mergeSort(array)
+    for i = 1 to length(array) - 1 do
+        if (array[i] = array[i+1]) do
+            return true;
+        end
+    end for
+    return false;
+end procedure
