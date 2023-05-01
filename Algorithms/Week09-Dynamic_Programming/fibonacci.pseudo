@@ -1,0 +1,31 @@
+memo = {} // empty array
+procedure function fib(n) do
+    if (n is in memo)
+        return memo[n]
+    if (n <= 2)
+        f = 1
+    else
+        f = fib(n - 1) + fib(n - 2)
+    
+    memo[n] = f
+    return f
+end
+
+var m = map(0 → 0, 1 → 1)
+procedure function fib(n) do
+    if key n is not in map m 
+        m[n] = fib(n − 1) + fib(n − 2)
+    return m[n]
+end
+
+procedure function fib(n) do
+    if n = 0
+        return 0
+    else
+        var prevFib = 0, currFib = 1
+        repeat n − 1 times
+            var newFib = prevFib + currFib
+            prevFib = currFib
+            currFib  = newFib
+    return currentFib
+end

@@ -1,0 +1,9 @@
+// T(n) = O(h)
+procedure treeSearch(x, k) do
+    if (x = null or k = key(k))
+        return x
+    if (k < key[x]) 
+        treeSearch(Left[x], k)
+    else
+        treeSearch(Right[x], k)   
+end procedure

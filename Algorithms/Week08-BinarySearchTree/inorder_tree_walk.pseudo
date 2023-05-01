@@ -1,0 +1,9 @@
+// T(n) = T(d) + T(n-d+1) + Q(1)
+// T(n) = O(n)
+procedure inorder_tree_walk(x) do
+    if (x != null) do
+        inorder_tree_walk(Left[x])
+        print key[x]
+        inorder_tree_walk(right[x])
+    end       
+end procedure

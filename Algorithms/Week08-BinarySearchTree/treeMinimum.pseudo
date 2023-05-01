@@ -1,0 +1,8 @@
+// T(n) = O(h)
+procedure treeMinimum(x) do
+    while (Left[x] != null) do
+        x = Left[x]
+    end
+    
+    return key[x]
+end procedure

@@ -1,0 +1,31 @@
+// The successor of a node x is the node
+// with the smallest bey greater than key[x]
+//
+//               15
+//            /     \
+//          6        18
+//        /  \     /    \
+//      3     7   17     20
+//    /   \     \
+//   2     4    13
+//             /
+//            9
+//
+// successor (4) = 6
+// successor (6) = 7
+// successor (15) = 17
+
+// T(n) = O(h)
+procedure treeSuccessor(x) do
+    if (right[x] != null)
+        return findMinimum(Right[x]) 
+
+    y = parent[x]
+
+    while (y != null and x = Right[y]) do
+        x = y
+        y = parent[y]
+    end
+
+    return y
+end procedure
