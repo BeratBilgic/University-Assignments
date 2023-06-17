@@ -32,5 +32,5 @@ Prim(G):
                 if the other endNode of edge is not visited:
                     Add edge to pq
     
-return MST
+    return MST
 ```
