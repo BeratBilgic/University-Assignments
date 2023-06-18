@@ -9,19 +9,19 @@ Dijkstra's algorithm finds the shortest paths between source and all other verti
 
 ## Pseudocode
 ```
-function Dijkstra(Graph, source):
-    for each vertex v in Graph:
-        dist[v] := infinity
-        previous[v] := undefined
-    dist[source] := 0
-    Q := the set of all nodes in Graph
-    while Q is not empty:
-        u := node in Q with smallest dist[ ]
-        remove u from Q
-        for each neighbor v of u:
-            alt := dist[u] + dist_between(u, v)
-            if alt < dist[v]
-                dist[v] := alt
-                previous[v] := u
-    return previous[ ], dist[ ]
+function dijkstra(G, S)
+    for each vertex V in G
+        distance[V] <- infinite
+        previous[V] <- NULL
+        If V != S, add V to Priority Queue Q
+    distance[S] <- 0
+	
+    while Q IS NOT EMPTY
+        U <- Extract MIN from Q //get and remove the node in Q with the smallest distance[ ]    
+        for each unvisited neighbour V of U
+            tempDistance <- distance[U] + edge_weight(U, V)
+            if tempDistance < distance[V]
+                distance[V] <- tempDistance
+                previous[V] <- U
+    return distance[], previous[]
 ```
