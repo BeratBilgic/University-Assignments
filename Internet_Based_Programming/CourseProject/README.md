@@ -1,6 +1,6 @@
-## [Project](https://github.com/BeratBilgic/IBP-Course-Project)
+## Project
 You can click on [this link](https://github.com/BeratBilgic/IBP-Course-Project) to visit my project.
-
+<br><br>
 ## Summary of Project Requirements: 
 On  a  bootstrap  and  responsive  compatible  administration  page  using  PHP  Framework  (such  as 
 Codeigniter, Laravel),  
@@ -18,4 +18,4 @@ Codeigniter, Laravel),
 - Follow administrator announcements from the home page 
 - Sends a message to the admin. 
 
-You can click on [this link](https://github.com/BeratBilgic/IBP-Course-Project/blob/main/IBP_Course_Project_Information.pdf) for more information about the requirements of the project.
+You can click on [this link](https://github.com/BeratBilgic/University-Assignments/blob/main/Internet_Based_Programming/CourseProject/IBP_Course_Project_Information.pdf) for more information about the requirements of the project.
