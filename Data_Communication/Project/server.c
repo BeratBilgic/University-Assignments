@@ -20,9 +20,10 @@
  */
 struct client
 {
-	int port;			 /* holds client's port num */
-	char username[10];	 /* client username */
-	struct client *next; /* pointer to the next client */
+	int port;			 			/* holds client's port num */
+	char username[10];	 			/* client username */
+	struct client *next;			/* pointer to the next client */
+	char lastMessage[MAXDATALEN];   /* keeps the last message received by the client */
 };
 
 typedef struct client *clients;
@@ -31,19 +32,18 @@ typedef clients addr; // pointer to the client addr to traverse through the link
 
 /* FUNTION HEADERS
  */
-void SendToAll(char *, int connfd);								  /* WE DONT USE THIS send chat msgs to all connected clients*/
-void SendPrivateMessage(char *msg, char *sender, char *receiver); /* sends a private message */
-void NotifyServerShutdown();									  /* send msg to all if server shuts down */
-head MakeEmpty(head headptr);									  /* clearing client list */
-void RemoveClient(int port, head headptr);						  /* delete client values on client exit */
-void InsertClient(int port, char *, head headptr, addr addr_ptr); /* inserting new client */
-void DeleteList(head headptr);									  /* clearing client list */
-void DisplayList(const head headptr);							  /* list all clients connected */
-void *CloseServer();											  /* signal handler */
-void *connClientToServer(void *arg);							  /* server instance for every connected client */
+void SendToAll(char *, int connfd);								  	/* WE DONT USE THIS send chat msgs to all connected clients*/
+void SendPrivateMessage(char *msg, char *sender, char *receiver); 	/* sends a private message */
+void ResendLastMessage(char *receiver);								/* resend last message */
+void NotifyServerShutdown();									  	/* send msg to all if server shuts down */
+head MakeEmpty(head headptr);									 	/* clearing client list */
+void RemoveClient(int port, head headptr);						  	/* delete client values on client exit */
+void InsertClient(int port, char *, head headptr, addr addr_ptr); 	/* inserting new client */
+void DeleteList(head headptr);									  	/* clearing client list */
+void DisplayList(const head headptr);							  	/* list all clients connected */
+void *CloseServer();											  	/* signal handler */
+void *connClientToServer(void *arg);							  	/* server instance for every connected client */
 void sigBlocktoDisplay();
-void createlogfile();
-void writelogfile(char str[256], char name[256]);
 
 /* GLOBAL VARIABLES
  */
@@ -51,8 +51,6 @@ int sf2;
 head head_ptr;	   /* variable of type struct head */
 char username[10]; /* size of username */
 char buffer[MAXDATALEN];
-
-FILE *file; // log file
 
 /******main starts ***********/
 int main(int argc, char *argv[])
@@ -67,8 +65,6 @@ int main(int argc, char *argv[])
 	addr addr_ptr; /*variable of type struct addr*/
 
 	printf("\n[+]Server Started\n");
-	createlogfile();
-	writelogfile("Server Started", NULL);
 
 	/* optional or default port argument */
 	if (argc == 2)
@@ -217,10 +213,10 @@ void *connClientToServer(void *arguments)
 		/* parse client message */
 		printf("Server Received: %s\n", buffer);
 
-		if (strncmp(buffer, "MESG|", 5) == 0)
+		if (strncmp(buffer, "MESG|", 5) == 0) // send message private
 		{
 			printf("SENDING PRIVATE MESSAGE.\n");
-			printf("buffer: %s\n",buffer);
+			printf("Buffer: %s\n",buffer);
 			char *spacelocation;
 			/* parsing the username of the receiver */
 			buff = (char *)malloc(bufflen);
@@ -246,7 +242,6 @@ void *connClientToServer(void *arguments)
 				strcpy(temp, spacelocation + 1);
 				printf("The private message is: %s\n", temp);
 
-				writelogfile(temp, uname); // write entry into log file
 				SendPrivateMessage(temp, uname, recvrname);
 				free(temp);
 				free(recvrname);
@@ -254,12 +249,17 @@ void *connClientToServer(void *arguments)
     		{
         		printf("Invalid format for private message.\n");
     		}
-		}
+		}// end MESG if (send message private)
+		else if (strncmp(buffer, "MERR", 4) == 0) // resend last message
+    	{
+        	printf("Error occurred. Resending last message.\n");
+        	ResendLastMessage(uname);
+    	}
 		else
 		{ /* send message to all */
 			printf("SENDING MESSAGE TO ALL.\n");
 			/*=if a client quits=*/
-			if (strncmp(buffer, "quit", 4) == 0)
+			if (strncmp(buffer, "GONE", 4) == 0)
 			{
 			jmp:
 				printf("%d ->%s left chat deleting from list\n", ts_fd, uname);
@@ -292,19 +292,19 @@ void *connClientToServer(void *arguments)
 			msglen = strlen(msg);
 			addr addr_ptr = head_ptr;
 
-			writelogfile(msg, NULL); // write entry into log file
 			do
 			{
 				addr_ptr = addr_ptr->next;
 				sfd = addr_ptr->port;
 				if (sfd != ts_fd)
+					strcpy(addr_ptr->lastMessage, msg);
 					send(sfd, msg, msglen, 0);
 			} while (addr_ptr->next != NULL);
 
 			DisplayList(head_ptr);
 			bzero(msg, MAXDATALEN);
-		} /* end if */
-	}	  /* end while */
+		} /* end else (send message to all) */
+	}/* end while */
 	return 0;
 
 } /* end server */
@@ -357,10 +357,56 @@ void SendPrivateMessage(char *msg, char *sender, char *receiver)
 	} while (addr_ptr != NULL);
 
 	recvrport = addr_ptr->port;
+	strcpy(addr_ptr->lastMessage, buff);
 
 	send(recvrport, buff, strlen(buff), 0); /* sending the private message */
 
 } /* end SendPrivateMessage */
+
+/* ResendLastMessage - resends the last message to a specific client
+ * Inputs:
+ *  receiver ->   address of the client who will receive the message
+ */
+void ResendLastMessage(char *receiver)
+{
+	addr addr_ptr = head_ptr;
+	char *usercheck = NULL;
+	
+	do
+	{
+		usercheck = addr_ptr->username;
+		printf("Checking the usercheck: %s\n", usercheck);
+
+		if (strcmp(usercheck, receiver) == 0)
+		{
+			printf("FOUND IT!\n");
+			break;
+		}
+		else
+		{
+			if (addr_ptr->next == NULL)
+			{
+				break;
+			}
+
+			addr_ptr = addr_ptr->next;
+		}
+
+	} while (addr_ptr != NULL);
+
+    // Check if the client has a last message
+    if (strlen(addr_ptr->lastMessage) > 0)
+    {
+        // Format and resend the last message		
+		printf("Resend message: '%.*s' for username: %s\n", (int)(strlen(addr_ptr->lastMessage) - 1), addr_ptr->lastMessage, addr_ptr->username);
+        send(addr_ptr->port, addr_ptr->lastMessage, strlen(addr_ptr->lastMessage), 0);
+    }
+    else
+    {
+        // Handle case when there is no last message
+		printf("No last message to resend to %s\n", addr_ptr->username);
+	}
+}
 
 /*=====empties and deletes the list======*/
 head MakeEmpty(head head_ptr)
@@ -448,9 +494,7 @@ void RemoveClient(int port, head headptr)
 void *CloseServer()
 {
 	printf("\n\nSERVER SHUTDOWN\n");
-	writelogfile("SERVER SHUTDOWN", NULL);
 	NotifyServerShutdown();
-	fclose(file);
 	exit(0);
 }
 
@@ -486,41 +530,3 @@ void sigBlocktoDisplay()
 	DisplayList(head_ptr);
 }
 
-void createlogfile(){
-	char fname[100];
-	int rc;
-	time_t temp;
-	struct tm *timeptr;
-
-	// Set up the Conversation History File name with DateTime And User Name
-	temp = time(NULL);
-	timeptr = localtime(&temp);
-	rc = strftime(fname, sizeof(fname), "%b_%d_%Y_Log_File", timeptr);
-	// printf("%d characters in Date Time String \n%s\n",rc,fname);
-	fname[rc + 1] = '\0';
-
-	file = fopen(fname, "a+"); // append file, add text to a file or create a file if it does not exist.
-}
-
-void writelogfile(char str[256], char name[256])
-{
-	char fname[100];
-	int rc;
-	time_t temp;
-	struct tm *timeptr;
-
-	// add the current date and time
-	temp = time(NULL);
-	timeptr = localtime(&temp);
-	rc = strftime(fname, sizeof(fname), "%a,%b %d %r", timeptr);
-	fprintf(file, "%s || ", fname);
-
-	if (name != NULL)
-    {
-        fprintf(file, "%s", name);
-    }
-
-	fprintf(file, "%s", str); // add received text into the log file
-    
-    fflush(file); // Flush the buffer to disk
-}

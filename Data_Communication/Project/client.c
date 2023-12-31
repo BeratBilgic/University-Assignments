@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <arpa/inet.h>
+#include <sys/stat.h>
 
 #define PORTNUM 8080 /* default port number */
 #define MAXDATALEN 256
@@ -25,6 +26,13 @@ void *chatwrite(int);
 void *chatread(int);
 void *ctrlzhandler();
 void convertToMESGFormat(const char *input, char *output);
+void createlogfile();
+void writelogfile(char str[256]);
+int calculateParity(char *message);
+int checkError(char *message);
+void sendMERRCommand(int sockfd);
+
+FILE *file; // log file
 
 int main(int argc, char *argv[])
 {
@@ -60,6 +68,8 @@ int main(int argc, char *argv[])
 	fpurge(stdin);
 	username[strlen(username) - 1] = ':';
 
+	createlogfile();
+
 	// 3. Connect
 	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
 	{
@@ -78,6 +88,7 @@ int main(int argc, char *argv[])
 		pthread_create(&thr1, NULL, (void *)chatread, (void *)sockfd);	// thread to read
 		pthread_join(thr2, NULL);
 		pthread_join(thr1, NULL);
+		fclose(file);
 	}
 
 	return 0;
@@ -96,8 +107,7 @@ void *chatwrite(int sockfd)
 	// Write to Socket
 	while (1)
 	{
-		printf("%s", username);
-
+		fflush(file);
 		fgets(buffer, MAXDATALEN - 1, stdin);
 		if (strlen(buffer) - 1 > sizeof(buffer))
 		{
@@ -106,10 +116,14 @@ void *chatwrite(int sockfd)
 			fpurge(stdin);
 		}
 
-		if (buffer[0] == '@'){
-			char bufferMESGFormat[256];
-			convertToMESGFormat(buffer, bufferMESGFormat);
-			n = send(sockfd, bufferMESGFormat, strlen(bufferMESGFormat), 0);
+		fprintf(file,"%s ",username); 	//writes UserName   conv history file
+		writelogfile(buffer); 			// write entry into log file
+
+        if (buffer[0] == '@'){
+				char bufferMESGFormat[MAXDATALEN];
+				convertToMESGFormat(buffer, bufferMESGFormat);
+				n = send(sockfd, bufferMESGFormat, strlen(bufferMESGFormat), 0);
+				bzero(bufferMESGFormat, MAXDATALEN);
 		}else{
 			n = send(sockfd, buffer, strlen(buffer), 0);
 		}
@@ -144,7 +158,16 @@ void *chatread(int sockfd)
 			{
 				printf("\n%s ", buffer);
 
-				bzero(buffer, MAXDATALEN);
+            	writelogfile(buffer);
+
+				// Check if the received message has a transmission error using a simple parity check
+                if (checkError(buffer)) {
+                    printf("Error detected in the received message. Please resend.\n");
+                    sendMERRCommand(sockfd); // Send MERR command to the server
+                }
+
+            	fflush(file);
+            	bzero(buffer, MAXDATALEN);
 			}
 		} // end of while
 
@@ -180,4 +203,88 @@ void convertToMESGFormat(const char *input, char *output) {
         // Error case: not a valid message format
         snprintf(output, 256, "Invalid message format");
     }
+}
+
+void createlogfile(){
+	char fname[100];
+	int rc;
+	time_t temp;
+	struct tm *timeptr;
+
+	struct stat st = {0};
+
+	// Ensure the "logs" directory exists
+	if (stat("logs", &st) == -1) {
+    	if (mkdir("logs", 0700) == -1) {
+            perror("Error creating logs directory");
+            exit(EXIT_FAILURE);
+        }
+	}
+
+	// Set up the Conversation History File name with DateTime And User Name
+	temp = time(NULL);
+	timeptr = localtime(&temp);
+	rc = strftime(fname,sizeof(fname),"logs/%b_%d_%Y_Log_File", timeptr);
+	//printf("%d characters in Date Time String \n%s\n",rc,fname);
+	
+	fname[rc]='-';
+	int i = 0;
+	while(i < strlen(username)){
+		fname[rc+i+1]=username[i];
+		i++;
+	}
+	fname[rc+i+1]='\0';
+	
+	file = fopen(fname,"a+"); // append file, add text to a file or create a file if it does not exist.
+}
+
+void writelogfile(char str[256])
+{
+	char fname[100];
+	int rc;
+	time_t temp;
+	struct tm *timeptr;
+
+	// add the current date and time
+	temp = time(NULL);
+	timeptr = localtime(&temp);
+	rc = strftime(fname, sizeof(fname), "%a, %b %d %r", timeptr);
+	fprintf(file, "%s || ", fname);
+
+	fprintf(file, "%s", str); // add received text into the log file
+}
+
+// For Parity check
+int calculateParity(char *message) {
+    int parity = 0;
+    int length = strlen(message);
+
+    // Calculate parity bit by bit
+    for (int i = 0; i < length; i++) {
+        if (message[i] == '1') {
+            parity = 1 - parity;
+        }
+    }
+
+    return parity;
+}
+
+// Function to check for errors in the message
+int checkError(char *message) {
+    // Error-checking algorithm is applied here
+    int parity = calculateParity(message);
+
+    if (parity == 0) {
+        // If parity is correct
+        return 0;
+    } else {
+        // If parity is incorrect
+        return 1;
+    }
+}
+
+// Function to send the "MERR" command to the server
+void sendMERRCommand(int sockfd) {
+    char errorCommand[] = "MERR";
+    send(sockfd, errorCommand, strlen(errorCommand), 0);
 }
