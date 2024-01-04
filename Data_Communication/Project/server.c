@@ -21,7 +21,8 @@
 struct client
 {
 	int port;			 			/* holds client's port num */
-	char username[10];	 			/* client username */
+	char username[10];				/* client username */
+	char clientIp[15];	 			/* client ip */
 	struct client *next;			/* pointer to the next client */
 	char lastMessage[MAXDATALEN];   /* keeps the last message received by the client */
 };
@@ -32,18 +33,18 @@ typedef clients addr; // pointer to the client addr to traverse through the link
 
 /* FUNTION HEADERS
  */
-void SendToAll(char *, int connfd);								  	/* WE DONT USE THIS send chat msgs to all connected clients*/
-void SendPrivateMessage(char *msg, char *sender, char *receiver); 	/* sends a private message */
-void ResendLastMessage(char *receiver);								/* resend last message */
-void NotifyServerShutdown();									  	/* send msg to all if server shuts down */
-head MakeEmpty(head headptr);									 	/* clearing client list */
-void RemoveClient(int port, head headptr);						  	/* delete client values on client exit */
-void InsertClient(int port, char *, head headptr, addr addr_ptr); 	/* inserting new client */
-void DeleteList(head headptr);									  	/* clearing client list */
-void DisplayList(const head headptr);							  	/* list all clients connected */
-void *CloseServer();											  	/* signal handler */
-void *connClientToServer(void *arg);							  	/* server instance for every connected client */
+void SendPrivateMessage(char *msg, char *sender, char *receiver); 			/* sends a private message */
+void ResendLastMessage(char *receiver);										/* resend last message */
+void NotifyServerShutdown();									  			/* send msg to all if server shuts down */
+head MakeEmpty(head headptr);									 			/* clearing client list */
+void RemoveClient(int port, head headptr);						  			/* delete client values on client exit */
+void InsertClient(int port, char *, head headptr, addr addr_ptr, char *);	/* inserting new client */
+void DeleteList(head headptr);									  			/* clearing client list */
+void DisplayList(const head headptr);							  			/* list all clients connected */
+void *CloseServer();											  			/* signal handler */
+void *connClientToServer(void *arg);							  			/* server instance for every connected client */
 void sigBlocktoDisplay();
+void processCONNCommand(char *connCommand, char *username, char *clientIP);
 
 /* GLOBAL VARIABLES
  */
@@ -133,14 +134,17 @@ int main(int argc, char *argv[])
 				/*= SIGN IN WITH NAME =*/
 				bzero(username, 10);
 
-				if (recv(connfd, username, sizeof(username), 0) > 0)
+				char connCommand[25];	
+				if (recv(connfd, connCommand, sizeof(connCommand), 0) > 0)
 				{
+					char clientIp[15];	
+					processCONNCommand(connCommand, username, clientIp);
 					username[strlen(username) - 1] = ':';
 
 					printf("\t%d->%s Joined ChatRoom\n", connfd, username);
 					sprintf(buffer, "%s IS ONLINE\n", username);
 
-					InsertClient(connfd, username, head_ptr, addr_ptr); /* inserting newly accepted client socked fd in list */
+					InsertClient(connfd, username, head_ptr, addr_ptr, clientIp); /* inserting newly accepted client socked fd in list */
 					addr_ptr = addr_ptr->next;
 					/*= notify all clients about newly joining clients =*/
 					addr_ptr = head_ptr;
@@ -438,7 +442,7 @@ void DeleteList(head headptr)
 } /* end DeleteList */
 
 /*===============inserting new clients to list==========*/
-void InsertClient(int port, char *username, head headptr, addr addr_ptr)
+void InsertClient(int port, char *username, head headptr, addr addr_ptr, char *clientIp)
 {
 	addr TmpCell;
 	TmpCell = malloc(sizeof(struct client));
@@ -448,6 +452,7 @@ void InsertClient(int port, char *username, head headptr, addr addr_ptr)
 
 	TmpCell->port = port;
 	strcpy(TmpCell->username, username);
+	strcpy(TmpCell->clientIp, clientIp);
 	TmpCell->next = addr_ptr->next;
 	addr_ptr->next = TmpCell;
 } /* end Insert */
@@ -466,7 +471,7 @@ void DisplayList(const head headptr)
 		do
 		{
 			addr_ptr = addr_ptr->next;
-			printf("%d->%s \t", addr_ptr->port, addr_ptr->username);
+			printf("%s : %d->%s \t", addr_ptr->clientIp ,addr_ptr->port, addr_ptr->username);
 		} while (addr_ptr->next != NULL);
 
 		printf("\n");
@@ -517,7 +522,7 @@ void NotifyServerShutdown()
 			i++;
 			addr_ptr = addr_ptr->next;
 			sfd = addr_ptr->port;
-			send(sfd, "server down", 13, 0);
+			send(sfd, "server down\n", 13, 0);
 		} while (addr_ptr->next != NULL);
 
 		printf("%d clients closed\n\n", i);
@@ -530,3 +535,31 @@ void sigBlocktoDisplay()
 	DisplayList(head_ptr);
 }
 
+void processCONNCommand(char *connCommand, char *username, char *clientIP)
+{
+    // Check if the command starts with "CONN|"
+    if (strncmp(connCommand, "CONN|", 5) == 0)
+    {
+        // Skip the "CONN|" part
+        char *dataStart = connCommand + 5;
+
+        // Find the position of the first '|'
+        char *firstPipe = strchr(dataStart, '|');
+
+        if (firstPipe != NULL)
+        {
+            // Calculate the length of the username
+            size_t usernameLength = firstPipe - dataStart;
+
+            // Copy the username to the output buffer
+            strncpy(username, dataStart, usernameLength);
+            username[usernameLength] = '\0';
+
+            // Move the pointer to the next character after '|'
+            dataStart = firstPipe + 1;
+
+            // Copy the client IP to the output buffer
+            strcpy(clientIP, dataStart);
+        }
+    }
+}

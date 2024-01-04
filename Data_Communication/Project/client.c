@@ -31,6 +31,7 @@ void writelogfile(char str[256]);
 int calculateParity(char *message);
 int checkError(char *message);
 void sendMERRCommand(int sockfd);
+void createCONNCommand(char *username, const char * clientIP, char *output);
 
 FILE *file; // log file
 
@@ -78,11 +79,13 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		printf("\n To send a private message use the format: '@user message'\n"); 
+		printf("\n To send a private message use the format: 'user->message'\n"); 
 		printf("%s Connected To Server\n", username);
-		printf("\r You Joined Chat as %s", buffer - 1);
+		printf("\r You Joined Chat as %s", username);
 
-		send(sockfd, username, strlen(username), 0);
+		char connCommand[25];	
+		createCONNCommand(username, clientIp, connCommand);
+		send(sockfd, connCommand, strlen(connCommand), 0);
 
 		pthread_create(&thr2, NULL, (void *)chatwrite, (void *)sockfd); // thread to write
 		pthread_create(&thr1, NULL, (void *)chatread, (void *)sockfd);	// thread to read
@@ -95,7 +98,7 @@ int main(int argc, char *argv[])
 } /* end of Main */
 
 /* chatwrite - writes to socket
- * for PM look for @ and update the message look
+ * for PM look for -> and update the message look
  */
 void *chatwrite(int sockfd)
 {
@@ -119,11 +122,11 @@ void *chatwrite(int sockfd)
 		fprintf(file,"%s ",username); 	//writes UserName   conv history file
 		writelogfile(buffer); 			// write entry into log file
 
-        if (buffer[0] == '@'){
-				char bufferMESGFormat[MAXDATALEN];
-				convertToMESGFormat(buffer, bufferMESGFormat);
-				n = send(sockfd, bufferMESGFormat, strlen(bufferMESGFormat), 0);
-				bzero(bufferMESGFormat, MAXDATALEN);
+        if (strstr(buffer, "->")){
+			char bufferMESGFormat[MAXDATALEN];
+			convertToMESGFormat(buffer, bufferMESGFormat);
+			n = send(sockfd, bufferMESGFormat, strlen(bufferMESGFormat), 0);
+			bzero(bufferMESGFormat, MAXDATALEN);
 		}else{
 			n = send(sockfd, buffer, strlen(buffer), 0);
 		}
@@ -182,26 +185,28 @@ void *ctrlzhandler()
 	return NULL;
 }
 
-// This function converts a message from "@username message" to '@user message' format
+// Function to convert the format from "a->naber" to "MESG|a|naber"
 void convertToMESGFormat(const char *input, char *output) {
-    const char *usernameStart = strchr(input, '@'); // Find the @ symbol
-    const char *messageStart = strchr(input, ' ');  // Find the first space
-    
-    if (usernameStart != NULL && messageStart != NULL) {
-        int usernameIndex = usernameStart - input + 1; // Skip the @ symbol
-        int messageIndex = messageStart - input;
-        
-        // Copy the "MESG|" part to the output buffer
-        strncpy(output, "MESG|", 5);
-        
-        // Concatenate the username to the output buffer
-        strncat(output, input + usernameIndex, messageIndex - usernameIndex);
-        
-        // Concatenate the rest of the message in the desired format
-        snprintf(output + strlen(output), 256 - strlen(output), "|%s", input + messageIndex + 1);
-    } else {
-        // Error case: not a valid message format
-        snprintf(output, 256, "Invalid message format");
+    char *token;
+    char *temp; // Used for strtok_r
+    char delimiter[] = "->";
+
+    // Make a non-const copy of the input string
+    char tempInput[strlen(input) + 1];
+    strcpy(tempInput, input);
+
+    // Extract the first part (a)
+    token = strtok_r(tempInput, delimiter, &temp);
+    if (token != NULL) {
+        strcat(output, "MESG|");
+        strcat(output, token);
+    }
+
+    // Extract the second part (naber)
+    token = strtok_r(NULL, delimiter, &temp);
+    if (token != NULL) {
+        strcat(output, "|");
+        strcat(output, token);
     }
 }
 
@@ -287,4 +292,16 @@ int checkError(char *message) {
 void sendMERRCommand(int sockfd) {
     char errorCommand[] = "MERR";
     send(sockfd, errorCommand, strlen(errorCommand), 0);
+}
+
+/*
+   createCONNCommand - Creates a formatted CONN command with the given username and client IP.
+   Parameters:
+     - username: The username to include in the command.
+     - clientIP: The client's IP address to include in the command.
+     - output: The buffer to store the resulting CONN command.
+*/
+void createCONNCommand(char *username, const char * clientIP, char *output)
+{
+    snprintf(output, MAXDATALEN, "CONN|%s|%s", username, clientIP);
 }
