@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <signal.h>
+#include "errorDetectionUtils.h"
 
 #define BACKLOG 100	   /* connections in the queue */
 #define MAXDATALEN 256 /* max size of messages to be sent */
@@ -45,6 +46,7 @@ void *CloseServer();											  			/* signal handler */
 void *connClientToServer(void *arg);							  			/* server instance for every connected client */
 void sigBlocktoDisplay();
 void processCONNCommand(char *connCommand, char *username, char *clientIP);
+void formatBuffer(char buffer[MAXDATALEN]);
 
 /* GLOBAL VARIABLES
  */
@@ -293,7 +295,11 @@ void *connClientToServer(void *arguments)
 			strp = msg;
 			strp += x;
 			strcat(strp, buffer);
+			char lastMessage[MAXDATALEN]; 
+			strcpy(lastMessage, msg);
+			formatBuffer(msg);
 			msglen = strlen(msg);
+
 			addr addr_ptr = head_ptr;
 
 			do
@@ -301,12 +307,13 @@ void *connClientToServer(void *arguments)
 				addr_ptr = addr_ptr->next;
 				sfd = addr_ptr->port;
 				if (sfd != ts_fd)
-					strcpy(addr_ptr->lastMessage, msg);
+					strcpy(addr_ptr->lastMessage, lastMessage);
 					send(sfd, msg, msglen, 0);
 			} while (addr_ptr->next != NULL);
 
 			DisplayList(head_ptr);
 			bzero(msg, MAXDATALEN);
+			bzero(lastMessage, MAXDATALEN);
 		} /* end else (send message to all) */
 	}/* end while */
 	return 0;
@@ -363,6 +370,7 @@ void SendPrivateMessage(char *msg, char *sender, char *receiver)
 	recvrport = addr_ptr->port;
 	strcpy(addr_ptr->lastMessage, buff);
 
+	formatBuffer(buff);
 	send(recvrport, buff, strlen(buff), 0); /* sending the private message */
 
 } /* end SendPrivateMessage */
@@ -562,4 +570,12 @@ void processCONNCommand(char *connCommand, char *username, char *clientIP)
             strcpy(clientIP, dataStart);
         }
     }
+}
+
+void formatBuffer(char buffer[MAXDATALEN]) {
+    uint8_t checksum = calculateChecksum(buffer);
+    uint8_t crc = calculateCRC(buffer);
+
+    // Format the buffer string
+    snprintf(buffer, MAXDATALEN, "%s|%u|%u", buffer, checksum, crc);
 }

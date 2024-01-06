@@ -9,6 +9,7 @@
 #include <signal.h>
 #include <arpa/inet.h>
 #include <sys/stat.h>
+#include "errorDetectionUtils.h"
 
 #define PORTNUM 8080 /* default port number */
 #define MAXDATALEN 256
@@ -27,11 +28,10 @@ void *chatread(int);
 void *ctrlzhandler();
 void convertToMESGFormat(const char *input, char *output);
 void createlogfile();
-void writelogfile(char str[256]);
-int calculateParity(char *message);
-int checkError(char *message);
+void writelogfile(char str[256], char username[256]);
 void sendMERRCommand(int sockfd);
 void createCONNCommand(char *username, const char * clientIP, char *output);
+int parseBuffer(char buffer[MAXDATALEN], uint8_t *checksum, uint8_t *crc);
 
 FILE *file; // log file
 
@@ -119,8 +119,7 @@ void *chatwrite(int sockfd)
 			fpurge(stdin);
 		}
 
-		fprintf(file,"%s ",username); 	//writes UserName   conv history file
-		writelogfile(buffer); 			// write entry into log file
+		writelogfile(buffer, username); 			// write entry into log file
 
         if (strstr(buffer, "->")){
 			char bufferMESGFormat[MAXDATALEN];
@@ -159,15 +158,19 @@ void *chatread(int sockfd)
 			}
 			if (n > 0)
 			{
+				uint8_t checksum;
+    			uint8_t crc;
+    			int checkFormat = parseBuffer(buffer, &checksum, &crc);
+
 				printf("\n%s ", buffer);
+            	writelogfile(buffer, NULL);
 
-            	writelogfile(buffer);
-
-				// Check if the received message has a transmission error using a simple parity check
-                if (checkError(buffer)) {
-                    printf("Error detected in the received message. Please resend.\n");
+				if (checkFormat && (checksum != calculateChecksum(buffer) || crc != calculateCRC(buffer)))
+				{
+					printf("Error detected in the received message. MERR command sent.\n");
+					writelogfile("Error detected in the received message. MERR command sent.\n", NULL);
                     sendMERRCommand(sockfd); // Send MERR command to the server
-                }
+				}
 
             	fflush(file);
             	bzero(buffer, MAXDATALEN);
@@ -243,7 +246,7 @@ void createlogfile(){
 	file = fopen(fname,"a+"); // append file, add text to a file or create a file if it does not exist.
 }
 
-void writelogfile(char str[256])
+void writelogfile(char str[256], char username[256])
 {
 	char fname[100];
 	int rc;
@@ -256,36 +259,12 @@ void writelogfile(char str[256])
 	rc = strftime(fname, sizeof(fname), "%a, %b %d %r", timeptr);
 	fprintf(file, "%s || ", fname);
 
+	if (username != NULL)
+	{
+		fprintf(file, "%s || ", username);
+	}
+
 	fprintf(file, "%s", str); // add received text into the log file
-}
-
-// For Parity check
-int calculateParity(char *message) {
-    int parity = 0;
-    int length = strlen(message);
-
-    // Calculate parity bit by bit
-    for (int i = 0; i < length; i++) {
-        if (message[i] == '1') {
-            parity = 1 - parity;
-        }
-    }
-
-    return parity;
-}
-
-// Function to check for errors in the message
-int checkError(char *message) {
-    // Error-checking algorithm is applied here
-    int parity = calculateParity(message);
-
-    if (parity == 0) {
-        // If parity is correct
-        return 0;
-    } else {
-        // If parity is incorrect
-        return 1;
-    }
 }
 
 // Function to send the "MERR" command to the server
@@ -304,4 +283,34 @@ void sendMERRCommand(int sockfd) {
 void createCONNCommand(char *username, const char * clientIP, char *output)
 {
     snprintf(output, MAXDATALEN, "CONN|%s|%s", username, clientIP);
+}
+
+int parseBuffer(char buffer[MAXDATALEN], uint8_t *checksum, uint8_t *crc) {
+    // Copy the original buffer for potential rollback
+    char originalBuffer[MAXDATALEN];
+    strcpy(originalBuffer, buffer);
+
+    // Split the data based on the '|' character
+    char *token = strtok(buffer, "|");
+
+    // Assign the parsed data to the parameters
+    if (token != NULL) {
+        token = strtok(NULL, "|"); // Skip message part
+
+        if (token != NULL) {
+            // Try to convert string to uint8_t for checksum
+            *checksum = (uint8_t)strtoul(token, NULL, 0);
+            token = strtok(NULL, "|");
+
+            if (token != NULL) {
+                // Try to convert string to uint8_t for crc
+                *crc = (uint8_t)strtoul(token, NULL, 0);
+                return 1; // Return 1 if the format is valid
+            }
+        }
+    }
+    
+    // If the format is not valid, rollback to the original buffer
+    strcpy(buffer, originalBuffer);
+    return 0; // Return 0 if the format is not valid
 }
