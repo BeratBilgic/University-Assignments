@@ -19,3 +19,9 @@ My coding assignments from Karabuk University Computer Engineering Department.
 [CPE212 - Internet Based Programming](https://github.com/BeratBilgic/University-Assignments/tree/main/Internet_Based_Programming)
 
 [CPE210 - Database Systems](https://github.com/BeratBilgic/University-Assignments/tree/main/Database_Systems)
+
+## Third Grade
+
+[CPE309 - Data Communications](https://github.com/BeratBilgic/University-Assignments/tree/main/Data_Communication)
+
+[CPE312 - Introduction to Machine Learning](https://github.com/BeratBilgic/University-Assignments/tree/main/Introduction_to_Machine_Learning)
